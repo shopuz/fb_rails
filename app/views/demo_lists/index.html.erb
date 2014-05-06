@@ -1,0 +1,38 @@
+<h1>Listing demo_lists</h1>
+
+
+<% if user_signed_in? %>
+Signed in as <%= current_user.name %>. Not you?
+<%= link_to "Sign out", destroy_user_session_path,:method => :delete %>
+<% else %>
+<%= link_to "Sign up", new_user_registration_path %> or
+<%= link_to "Sign in", new_user_session_path %>
+<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+<% end %>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @demo_lists.each do |demo_list| %>
+      <tr>
+        <td><%= demo_list.name %></td>
+        <td><%= demo_list.content %></td>
+        <td><%= link_to 'Show', demo_list %></td>
+        <td><%= link_to 'Edit', edit_demo_list_path(demo_list) %></td>
+        <td><%= link_to 'Destroy', demo_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Demo list', new_demo_list_path %>
